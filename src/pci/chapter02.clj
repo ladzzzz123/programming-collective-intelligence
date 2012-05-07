@@ -32,13 +32,21 @@
   [x y]
   (/ 1 (+ 1 (distance x y))))
 
+(defn similarity-distance [x y] ;; sim_distance
+  "Calculate the square of the Euclidean distance between two vectors and invert it."
+  (+ 1 (reduce + (map #(* % %) (map - x y)))))
+
 (defn sim-distance
-  ""
+  "Returns a distance-based similarity score for person1 and person2"
   [prefs person1 person2]
   (let [p1 (prefs person1)
         p2 (prefs person2)
-        ;; get the list of shared_items
-        si (key-intersection p1 p2)]
-    (if (zero? (count si)) ;; return 0 if no shared items
+        ;; get a list of shared items
+        shared-items (key-intersection p1 p2)]
+    (if (zero? (count shared-items)) ;; return 0 if no shared items
       0
-      ())))   
+      (/ 1
+        (+ 1 (reduce + (map #(* % %)
+          (map -
+            (map #(get p1 %) shared-items)
+            (map #(get p2 %) shared-items)))))))))
