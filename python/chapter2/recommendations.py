@@ -70,6 +70,7 @@ def sim_pearson(prefs,p1,p2):
 
   r=num/den
 
+  #return pow(sum2,2)/n
   return r
 
 # Returns the best matches for person from the prefs dictionary. 
