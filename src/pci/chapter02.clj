@@ -76,3 +76,21 @@
     (if (zero? denominator)
       0
       (/ numerator denominator)))))
+
+;; Now we want to create a function that scores everyone against a given person and finds the closest matches.
+;; This can be used to find critics with similar tastes to the given person
+
+(defn topMatches
+  "A function that ranks critics in order of similarity to a given person
+   fn can be either sim-pearson or sim-distance"
+  [prefs person func]
+  (reverse
+    (sort (map
+      (fn [x]
+        (vector (func prefs person x) x))
+      (filter #(not (= person %)) (map #(first %) prefs))))))
+
+(defn find-most-similar-critic
+  "Return the critic most similar to a person"
+  [prefs person fn]
+  (first (topMatches prefs person fn)))
