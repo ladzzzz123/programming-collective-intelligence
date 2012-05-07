@@ -41,12 +41,10 @@
   [prefs person1 person2]
   (let [p1 (prefs person1)
         p2 (prefs person2)
-        ;; get a list of shared items
-        shared-items (key-intersection p1 p2)]
-    (if (zero? (count shared-items)) ;; return 0 if no shared items
-      0
-      (/ 1
-        (+ 1 (reduce + (map #(* % %)
-          (map -
-            (map #(get p1 %) shared-items)
-            (map #(get p2 %) shared-items)))))))))
+        shared-items (key-intersection p1 p2)]   ;; get a list of shared items
+    (if (zero? (count shared-items)) 
+      0 ;; return 0 if no shared items
+      (/ 1 (+ 1 (reduce + (map #(* % %)
+        (map -
+          (map #(get p1 %) shared-items)
+          (map #(get p2 %) shared-items)))))))))
