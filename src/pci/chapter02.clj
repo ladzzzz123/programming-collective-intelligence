@@ -19,7 +19,8 @@
 ;; Returns a distance-based similarity score for person1 and person2
 
 (defn distance
-  "Take the distance in each axis, square them and add them together"
+  "Calculate the Euclidean distance.
+   Take the distance in each axis, square them and add them together"
   [x y]
   (letfn [(square [x] (* x x))]
     (let [[a b] x
@@ -31,10 +32,6 @@
   "A function that gives higher values for people that are similar"
   [x y]
   (/ 1 (+ 1 (distance x y))))
-
-(defn similarity-distance [x y] ;; sim_distance
-  "Calculate the square of the Euclidean distance between two vectors and invert it."
-  (+ 1 (reduce + (map #(* % %) (map - x y)))))
 
 ;; Code is not optimized for elegance,
 ;; Written so that it's easy to understand and translates easily to the Python version
